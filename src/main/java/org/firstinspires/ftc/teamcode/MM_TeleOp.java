@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-@TeleOp(name="testTeleOp", group="test")
+@TeleOp(name="TeleOp", group="MM")
 public class MM_TeleOp extends MM_OpMode{
     @Override
     public void runProcedures(){
@@ -14,8 +14,8 @@ public class MM_TeleOp extends MM_OpMode{
             currentGamepad2.copy(gamepad2);
 
             robot.drivetrain.driveWithSticks();
-            multipleTelemetry.addLine("Helloooo");
-            multipleTelemetry.update();
+
+            telemetry();
         }
     }
 }

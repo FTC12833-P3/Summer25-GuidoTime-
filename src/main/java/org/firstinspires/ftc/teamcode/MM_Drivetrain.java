@@ -50,18 +50,29 @@ public class MM_Drivetrain {
         double strafePower = opMode.gamepad1.left_stick_x;
         double rotatePower = -opMode.gamepad1.right_stick_x;
 
-
+        if (currentGamepad1.a && !previousGamepad1.a && !currentGamepad1.start) {
+            slowMode = !slowMode;
+        }
 
         flPower = drivePower + strafePower - rotatePower;
         frPower = drivePower - strafePower + rotatePower;
         blPower = drivePower - strafePower - rotatePower;
         brPower = drivePower + strafePower + rotatePower;
+        setDrivePowers();
+    }
 
+    private void normalize() {
+        double maxPower = Math.max(Math.abs(flPower), Math.max(Math.abs(frPower), Math.max(Math.abs(blPower), Math.abs(brPower))));
 
-        if (currentGamepad1.a && !previousGamepad1.a) {
-            slowMode = !slowMode;
+        if (maxPower > 1) {
+            flPower = (flPower / maxPower);
+            frPower = (frPower / maxPower);
+            blPower = (blPower / maxPower);
+            brPower = (brPower / maxPower);
         }
+    }
 
+    private void setDrivePowers() {
         normalize();
 
         if (slowMode) {
@@ -75,16 +86,5 @@ public class MM_Drivetrain {
         frMotor.setPower(frPower);
         blMotor.setPower(blPower);
         brMotor.setPower(brPower);
-    }
-
-    private void normalize() {
-        double maxPower = Math.max(Math.abs(flPower), Math.max(Math.abs(frPower), Math.max(Math.abs(blPower), Math.abs(brPower))));
-
-        if (maxPower > 1) {
-            flPower = (flPower / maxPower);
-            frPower = (frPower / maxPower);
-            blPower = (blPower / maxPower);
-            brPower = (brPower / maxPower);
-        }
     }
 }

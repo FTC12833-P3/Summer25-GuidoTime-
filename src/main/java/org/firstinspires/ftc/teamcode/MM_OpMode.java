@@ -36,6 +36,12 @@ public abstract class MM_OpMode extends LinearOpMode {
 
     public abstract void runProcedures();
 
+    public void telemetry(){
+        multipleTelemetry.addData("slide", "inches: %.2f slide ticks: %d", robot.transport.getSlideInches(), robot.transport.getSlideTicks());
+        multipleTelemetry.addData("pivot", "degrees: %.2f", robot.transport.getPivotDegrees());
+        multipleTelemetry.update();
+    }
+
     public void initialize(){
         robot = new MM_Robot(this);
         robot.init();
